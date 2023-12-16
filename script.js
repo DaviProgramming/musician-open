@@ -100,7 +100,6 @@ const albuns = {
     let link = album.external_urls.spotify;
     let imagem = album.images[0].url;
 
-    console.log(album)
 
     this.criarAlbuns({nome, link, imagem, listname})
 
@@ -274,6 +273,7 @@ const init = {
           loop: true,
           autoWidth: true,
           items: 9,
+          autoplay: true,
           autoplayTimeout: 3000,
           autoplayHoverPause:false,
         });
@@ -289,14 +289,36 @@ const init = {
     let buttonSearch = document.querySelector(".form-control i");
 
     buttonSearch.addEventListener("click", (event) => {
-      search.getSearch();
+
+       let input = event.target.parentNode.querySelector('input');
+
+       if(input.value.length <= 3){
+
+        if(!input.parentNode.classList.contains('error')){
+            input.parentNode.classList.add('error');
+        }
+
+       }
+       else {
+
+        if(input.parentNode.classList.contains('error')){
+            input.parentNode.classList.remove('error');
+        }
+
+       
+        search.getSearch(search)
+
+       }
     });
+
+
   },
 };
 
 const search = {
+
   getSearch(search) {
-    fetch("https://api.spotify.com/v1/search?q=drake&type=album%2Cartist", {
+    fetch("https://api.spotify.com/v1/search?q=" + search + "&type=album%2Cartist", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -317,6 +339,8 @@ const search = {
 
       this.getSearch();
     } else {
+
+        console.log(dados);
     }
   },
 

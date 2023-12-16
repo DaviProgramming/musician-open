@@ -18,7 +18,7 @@ body {
     font-family: var(--font-family-2);
     min-height: 100vh;
     width: 100vw;
-    background: black;
+    background-image: linear-gradient(to left bottom, #000000, #000000, #000000, #000000, #000000, #010101, #020202, #030303, #050505, #070707, #090909, #0b0b0b);
     color: white;
     overflow-x: hidden;
 }
@@ -46,7 +46,7 @@ section .hero-text {
 }
 
 .hero-text .form-control{
-    border: 2px solid white;
+    border: 1px solid white;
     border-radius: 10px;
     max-width: 500px;
     height: max-content;
@@ -58,6 +58,15 @@ section .hero-text {
     overflow: hidden;
 }
 
+.form-control.error{
+    border: 1px solid red;
+}
+
+.form-control.error input::placeholder, .form-control.error i{
+    color: red;
+}
+
+
 .hero-text input{
     width: 100%;
     height: 100%;
@@ -65,7 +74,7 @@ section .hero-text {
     outline: none;
     padding: 20px;
     max-width: 500px;
-
+    font-family: var(--font-family-1);
 
 }
 
@@ -77,9 +86,10 @@ section .hero-text {
 .form-control i{
     position: absolute;
     top: 34%;
-    right: 10px;
+    right: 20px;
     color: black;
     cursor: pointer;
+    background: white;
 }
 
 .hero .img{
@@ -196,6 +206,7 @@ section .hero-text {
     font-size: 1.1rem;
     font-weight: 700;
     color: white;
+    width: 90%;
 }
 
 .card-text-about{
@@ -216,6 +227,10 @@ section .hero-text {
     width: 10px;
     background: blue;
     height: 5px;
+}
+
+.owl-carousel .owl-stage-outer{
+    border-radius: 10px!important;
 }
 
 .card.skeleton{
@@ -241,4 +256,41 @@ section .hero-text {
     100% {
       background-position: -200% 0;
     }
+  }
+
+
+  @media screen and (max-width: 598px) {
+
+    .hero-text{
+        left: 50px!Important;
+    }
+
+    .form-control{
+        width: 84%;
+    }
+
+    .hero-text h1{
+        font-size: 1.2rem ;
+    }
+
+    .carousels{
+        padding: 0 0!important;
+    }
+    
+  }
+
+
+
+  @media screen and (max-width: 778px) {
+
+    .hero-text h1{
+        font-size: 2rem;
+        width: 80%;
+
+    }
+
+    .form-control{
+        width: 80%;
+    }
+    
   }
