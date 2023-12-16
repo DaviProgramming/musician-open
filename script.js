@@ -1,0 +1,347 @@
+var token = localStorage.getItem("MusicianTokenSpotifySecret");
+
+const createToken = () => {
+  const url = "https://accounts.spotify.com/api/token";
+  const clientId = "4ac8ecaa2fcf47c1a5063769d0ae79e8";
+  const clientSecret = "5c1e6b5fb0664185975d44e6293229f1";
+
+  const formData = new URLSearchParams();
+  formData.append("grant_type", "client_credentials");
+  formData.append("client_id", clientId);
+  formData.append("client_secret", clientSecret);
+
+  fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: formData,
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      token = data.access_token;
+      localStorage.setItem("MusicianTokenSpotifySecret", token);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+};
+
+const albuns = {
+
+  albunsNovosBrasil() {
+    let url =
+      "https://api.spotify.com/v1/browse/new-releases?country=BR&limit=30";
+
+    fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error != null) {
+
+          createToken();
+
+        } else {
+
+            data.albums.items.forEach(album => {
+                this.tratamentoAlbum(album, '#novidadesBR');
+            })
+        }
+      })
+      .catch((error) => {
+        console.error("Erro:", error);
+      });
+  },
+
+
+  albunsNovosUS(){
+
+    let url =
+      "https://api.spotify.com/v1/browse/new-releases?country=US&limit=30";
+
+    fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error != null) {
+
+          createToken();
+
+        } else {
+
+            data.albums.items.forEach(album => {
+                this.tratamentoAlbum(album, '#novidadesUS');
+            })
+        }
+      })
+      .catch((error) => {
+        console.error("Erro:", error);
+      });
+
+
+  },
+
+
+
+
+  tratamentoAlbum(album, listname){
+
+
+
+    let nome = album.name;
+    let link = album.external_urls.spotify;
+    let imagem = album.images[0].url;
+
+    console.log(album)
+
+    this.criarAlbuns({nome, link, imagem, listname})
+
+  },
+
+
+  criarAlbuns(data){
+
+    let divFather = document.querySelector(data.listname);
+
+    let divItem = document.createElement("div");
+    divItem.classList.add("item");
+    let divCard = document.createElement("a");
+    divCard.classList.add("card");
+    divCard.href = data.link;
+    divCard.target = "_blank";
+
+    let divCardImage = document.createElement("div");
+    divCardImage.classList.add("card-image");
+    let image = document.createElement("img");
+    image.src = data.imagem;
+
+    let divCardText = document.createElement("div");
+    divCardText.classList.add("card-text");
+    let divCardtexttitle = document.createElement("div");
+    divCardtexttitle.classList.add("card-text-title");
+    divCardtexttitle.innerHTML = data.nome;
+
+    divCardImage.appendChild(image);
+    divCardText.appendChild(divCardtexttitle);
+
+    divCard.appendChild(divCardImage);
+    divCard.appendChild(divCardText);
+
+    divItem.appendChild(divCard);
+
+    divFather.appendChild(divItem);
+  }
+};
+
+const playlists = {
+  playlistBrasil() {
+    let url =
+      "https://api.spotify.com/v1/browse/featured-playlists?country=BR&limit=30";
+
+    fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error != null) {
+          createToken();
+
+          init.getPlaylistsAndAlbuns();
+        } else {
+          this.tratamentoPlaylist(data, "#playlistsBr");
+        }
+      })
+      .catch((error) => {
+        console.error("Erro:", error);
+      });
+  },
+
+  playlistWorld() {
+
+    let url =
+      "https://api.spotify.com/v1/browse/featured-playlists?country=US&limit=30";
+
+    fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error != null) {
+          createToken();
+
+          init.getPlaylistsAndAlbuns();
+        } else {
+          this.tratamentoPlaylist(data, "#world");
+        }
+      })
+      .catch((error) => {
+        console.error("Erro:", error);
+      });
+  },
+
+  tratamentoPlaylist(dataPlaylist, listName) {
+    let playlists = dataPlaylist.playlists;
+
+    playlists.items.forEach((playlist) => {
+      let nome = playlist.name;
+      let imagem = playlist.images[0].url;
+      let link = playlist.external_urls.spotify;
+
+      this.criarPlaylists({ nome, imagem, link, listName });
+    });
+
+    this.load++;
+  },
+
+  criarPlaylists(data) {
+    let divFather = document.querySelector(data.listName);
+
+    let divItem = document.createElement("div");
+    divItem.classList.add("item");
+    let divCard = document.createElement("a");
+    divCard.classList.add("card");
+    divCard.href = data.link;
+    divCard.target = "_blank";
+
+    let divCardImage = document.createElement("div");
+    divCardImage.classList.add("card-image");
+    let image = document.createElement("img");
+    image.src = data.imagem;
+
+    let divCardText = document.createElement("div");
+    divCardText.classList.add("card-text");
+    let divCardtexttitle = document.createElement("div");
+    divCardtexttitle.classList.add("card-text-title");
+    divCardtexttitle.innerHTML = data.nome;
+
+    divCardImage.appendChild(image);
+    divCardText.appendChild(divCardtexttitle);
+
+    divCard.appendChild(divCardImage);
+    divCard.appendChild(divCardText);
+
+    divItem.appendChild(divCard);
+
+    divFather.appendChild(divItem);
+  },
+};
+
+const init = {
+
+  getPlaylistsAndAlbuns() {
+
+    function promisePlayLists() {
+      return new Promise((resolve, reject) => {
+
+        playlists.playlistBrasil();
+        playlists.playlistWorld();
+        albuns.albunsNovosBrasil();
+        albuns.albunsNovosUS();
+
+        
+
+        setTimeout(() => {
+          resolve(true);
+          // Ou, se ocorrer um erro:
+          // reject(new Error('Algo deu errado!'));
+        }, 2000);
+      });
+    }
+
+    promisePlayLists()
+
+      .then((resultado) => {
+
+        document.querySelectorAll('.owl-carousel.skeleton-carousel').forEach(carousel => {
+            carousel.remove();
+        })
+        $(".owl-carousel").owlCarousel({
+          margin: 20,
+          loop: true,
+          autoWidth: true,
+          items: 9,
+          autoplayTimeout: 3000,
+          autoplayHoverPause:false,
+        });
+      })
+      .catch((erro) => {
+        console.error(erro);
+      });
+
+
+  },
+
+  createListeners() {
+    let buttonSearch = document.querySelector(".form-control i");
+
+    buttonSearch.addEventListener("click", (event) => {
+      search.getSearch();
+    });
+  },
+};
+
+const search = {
+  getSearch(search) {
+    fetch("https://api.spotify.com/v1/search?q=drake&type=album%2Cartist", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        this.tratamentoSearch(data);
+      })
+      .catch((error) => {
+        console.error("Erro na solicitação:", error);
+      });
+  },
+
+  tratamentoSearch(dados) {
+    if (dados.error != null) {
+      createToken();
+
+      this.getSearch();
+    } else {
+    }
+  },
+
+  createResults() {},
+};
+
+async function startAll() {
+
+    $(".owl-carousel.skeleton-carousel").owlCarousel({
+        margin: 20,
+        loop: true,
+        autoWidth: true,
+        items: 9,
+        autoplayTimeout: 3000,
+        autoplayHoverPause:false,
+      });
+
+   
+
+  if (token == null || token == "") {
+    await createToken();
+  }
+
+  init.createListeners();
+  init.getPlaylistsAndAlbuns();
+}
+
+startAll();
