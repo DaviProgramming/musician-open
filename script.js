@@ -23,7 +23,6 @@ const createToken = () => {
       localStorage.setItem("MusicianTokenSpotifySecret", token);
     })
     .catch((error) => {
-      console.error("Error:", error);
     });
 };
 
@@ -53,7 +52,6 @@ const albuns = {
         }
       })
       .catch((error) => {
-        console.error("Erro:", error);
       });
   },
 
@@ -83,7 +81,6 @@ const albuns = {
         }
       })
       .catch((error) => {
-        console.error("Erro:", error);
       });
 
 
@@ -162,7 +159,6 @@ const playlists = {
         }
       })
       .catch((error) => {
-        console.error("Erro:", error);
       });
   },
 
@@ -188,7 +184,6 @@ const playlists = {
         }
       })
       .catch((error) => {
-        console.error("Erro:", error);
       });
   },
 

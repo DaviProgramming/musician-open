@@ -28,7 +28,6 @@ const createToken = () => {
             localStorage.setItem("MusicianTokenSpotifySecret", token);
         })
         .catch((error) => {
-            console.error("Error:", error);
         });
 };
 
@@ -47,7 +46,6 @@ const search = {
                 this.tratamentoSearch(data);
             })
             .catch((error) => {
-                console.error("Erro na solicitação:", error);
             });
     },
 
@@ -67,7 +65,6 @@ const search = {
                 let nome = artista.name;
                 let link = artista.external_urls.spotify;
                 let image = artista.images[0].url;
-                console.log(artista)
 
                 if (image != null) {
 
@@ -230,7 +227,6 @@ async function startAll() {
                 });
             })
             .catch((erro) => {
-                console.error(erro);
             });
 
     }
