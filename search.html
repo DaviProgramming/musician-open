@@ -12,22 +12,22 @@
 
 <body>
     <nav><a href="/">
-        <div class="logo">
-            <div class="logo-image">
-                <img src="Assets/musician-logo.jpg" alt="">
+            <div class="logo">
+                <div class="logo-image">
+                    <img src="Assets/musician-logo.jpg" alt="">
+                </div>
+                <div class="logo-text">Musician</div>
             </div>
-            <div class="logo-text">Musician</div>
-        </div>
-    </a></nav>
+        </a></nav>
     <section>
         <div class="hero">
-            
+
             <div class="hero-text">
                 <h1>Saiba tudo sobre o mundo da musica</h1>
 
                 <div class="form-control ">
-                <input type="text" id="search" placeholder="Pesquise aqui" maxlength="20">
-                <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="search" placeholder="Pesquise aqui" maxlength="20">
+                    <i class="fa-solid fa-magnifying-glass"></i>
 
 
                 </div>
@@ -43,80 +43,43 @@
 
         <div class="carousels">
 
+            <div class="carousels-title search">
+                Resultados para a pesquisa: <span></span>
+            </div>
+
             <div class="carousels-title">
-                Playlists famosas no Brasil
+                Artistas:
             </div>
 
             <div class="owl-carousel owl-theme skeleton-carousel">
                 <div class="item">
                     <div class="card skeleton">
-                     
+
                     </div>
                 </div>
             </div>
 
-            <div class="owl-carousel owl-theme" id="playlistsBr">
-
-               
+            <div class="owl-carousel owl-theme" id="artistas">
 
             </div>
 
             <div class="carousels-title">
-                Mundo a fora
+                Álbuns:
             </div>
 
             <div class="owl-carousel owl-theme skeleton-carousel">
                 <div class="item">
                     <div class="card skeleton">
-                     
+
                     </div>
                 </div>
             </div>
 
-            <div class="owl-carousel owl-theme" id="world">
-
-            </div>
-
-            <div class="carousels-title">
-                Novidades Brasil
-            </div>
-
-            <div class="owl-carousel owl-theme skeleton-carousel">
-                <div class="item">
-                    <div class="card skeleton">
-                     
-                    </div>
-                </div>
-            </div>
-
-            <div class="owl-carousel owl-theme" id="novidadesBR">
-
-            </div>
-
-            <div class="carousels-title">
-                Novidades Estados unidos
-            </div>
-
-            <div class="owl-carousel owl-theme skeleton-carousel">
-                <div class="item">
-                    <div class="card skeleton">
-                     
-                    </div>
-                </div>
-            </div>
-
-            <div class="owl-carousel owl-theme" id="novidadesUS">
+            <div class="owl-carousel owl-theme" id="albuns">
 
             </div>
 
 
-            
-
-            
-
-         
-
-        
         </div>
     </section>
     <footer>
@@ -137,7 +100,7 @@
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <script src="script.js"></script>
+    <script src="scriptSearch.js"></script>
 </body>
 
 </html>

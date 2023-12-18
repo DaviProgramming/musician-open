@@ -255,9 +255,7 @@ const init = {
 
         setTimeout(() => {
           resolve(true);
-          // Ou, se ocorrer um erro:
-          // reject(new Error('Algo deu errado!'));
-        }, 2000);
+        }, 3000);
       });
     }
 
@@ -286,6 +284,7 @@ const init = {
   },
 
   createListeners() {
+
     let buttonSearch = document.querySelector(".form-control i");
 
     buttonSearch.addEventListener("click", (event) => {
@@ -305,8 +304,9 @@ const init = {
             input.parentNode.classList.remove('error');
         }
 
+        window.location.href = 'search.html?search=' + input.value;
+
        
-        search.getSearch(search)
 
        }
     });
@@ -315,37 +315,7 @@ const init = {
   },
 };
 
-const search = {
 
-  getSearch(search) {
-    fetch("https://api.spotify.com/v1/search?q=" + search + "&type=album%2Cartist", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        this.tratamentoSearch(data);
-      })
-      .catch((error) => {
-        console.error("Erro na solicitação:", error);
-      });
-  },
-
-  tratamentoSearch(dados) {
-    if (dados.error != null) {
-      createToken();
-
-      this.getSearch();
-    } else {
-
-        console.log(dados);
-    }
-  },
-
-  createResults() {},
-};
 
 async function startAll() {
 
