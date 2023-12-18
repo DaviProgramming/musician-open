@@ -7,8 +7,8 @@ var token = localStorage.getItem("MusicianTokenSpotifySecret");
 
 const createToken = () => {
     const url = "https://accounts.spotify.com/api/token";
-    const clientId = "4ac8ecaa2fcf47c1a5063769d0ae79e8";
-    const clientSecret = "5c1e6b5fb0664185975d44e6293229f1";
+    const clientId = "";
+    const clientSecret = "";
 
     const formData = new URLSearchParams();
     formData.append("grant_type", "client_credentials");
